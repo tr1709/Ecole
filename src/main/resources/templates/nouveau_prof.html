@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Système de gestion de l'école</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    </head>
+    <body>
+        <div align="center">
+            <h1>Gestion des Professeurs</h1>
+            <hr />
+            <h2>Nouveau Professeur</h2>
+            
+            <form action="#" th:action="@{/profs/saveNew}" th:object="${prof}" method="POST">
+                <div class="mb-3 col-4">
+                    <label th:for="nom">Nom</label>
+                    <input type="text" th:field="*{nom}" placeholder="Prof Nom" class="form-control" />
+                    <span class="text-danger" th:errors="*{nom}"></span>
+                </div>
+                <div class="mb-3 col-4">
+                    <label th:for="prenom">Prenom</label>
+                    <input type="text" th:field="*{prenom}" placeholder="Prof Prenom" class="form-control" />
+                    <span class="text-danger" th:errors="*{prenom}"></span>
+                </div>
+                <div class="mb-3 col-4">
+                    <label th:for="dateNaiss">Date de naissance</label>
+                    <input type="date" th:field="*{dateNaiss}" placeholder="Professeur Date de Naissance" class="form-control" />
+                    <span class="text-danger" th:errors="*{dateNaiss}"></span>
+                </div>
+                
+                <div class="mb-3 col-4">
+                    <label th:for="sexe">Sexe</label>
+                    <input type="text" th:field="*{sexe}" placeholder="Professeur Sexe" class="form-control" />
+                    <span class="text-danger" th:errors="*{sexe}"></span>
+                </div>
+                
+                 <div>
+                    <button type="submit" class="btn btn-primary col-2">Enregistrer</button>
+                    <a th:href = "@{/profs}" class="btn btn-danger col-2">Annuler</a>
+                </div>
+            </form>
+            
+            <hr />
+            
+        </div>
+    </body>
+</html>
+
+

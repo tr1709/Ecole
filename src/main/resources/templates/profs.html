@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Système de gestion des professeurs</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
+integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous"/>
+    </head>
+    
+    
+    <body>
+        
+
+       <div class="container my-2">
+            <h1>Gestion des Professeurs</h1>
+            <hr />
+            
+            <a th:href = "@{/profs/new}" class="btn btn-primary btn-sm mb-3">Ajouter Professeur</a>
+            <h2 class="mb-3">Liste des professeurs</h2>
+           
+               <table class="table table-striped" >
+                   <thead>
+                      <tr>
+                          <th>Prof Nom</th>
+                          <th>Prof Prenom</th>
+                          <th>Prof Date de Naissance</th>
+                          <th>Prof Sexe</th>
+                          <th>Actions</th>
+                      </tr>
+                   </thead>
+                
+                   <tbody>
+                       <tr th:each="prof : ${listProfs}">
+                          <td th:text="${prof.nom}"></td>
+                          <td th:text="${prof.prenom}"></td>
+                          <td th:text="${#temporals.format(prof.dateNaiss,'dd-MM-yyyy')}"></td>
+                          <td th:text="${prof.sexe}"></td>
+                          <td><a th:href="@{/profs/update(id=${prof.id})}" class="btn btn-primary">Modifier</a>
+                              <a th:href="@{/profs/delete(id=${prof.id})}"class="btn btn-danger">Supprimer</a> 
+                              <a th:href="@{/seancescours/filter3(prof=${prof.id})}" class="btn btn-success">Afficher les cours</a>
+                          </td>
+                       </tr>
+                  </tbody>
+              </table>
+            <div th:if="${message}" th:text="${message}" class="alert-danger mb-3" />
+        <a th:href = "@{/}" >Retour à la page d'accueil</a>
+     </div>
+
+    </body>
+</html>

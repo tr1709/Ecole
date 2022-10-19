@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="fr" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Système de gestion des professeurs</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    </head>
+    <body>
+        <div class="container my-2">
+            <h1>Gestion des Cours</h1>
+            <hr />
+            <a th:href = "@{/seancescours/new}" class="btn btn-primary btn-sm mb-3">Ajouter le cours</a>
+            <h2 class="mb-3">Liste des Cours</h2>
+            <div class="row">               
+                <div class="col">
+                    <form th:action="@{/seancescours/filter1}" method="get">
+                        <div class="form-group">
+                            <label>Nom : </label>
+                            <input type="text" name="motCle" th:value="${filter1}"/>
+                            <button type="submit">Recherche</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="col">
+                    <form th:action="@{/seancescours/filter2}" method="get">
+                        <div class="form-group">
+                            <label>Jour : </label>
+                            <select name="jour">
+                                <option th:value="0">Selectionner jour</option>
+                                <option th:each="jour : ${listSeancesCours}"
+                                th:value="${jour.jour}" 
+                                th:text="${jour.jour}" th:selected="${jour.jour}==${filter2}"></option>
+                            </select>
+                            <button type="submit">Recherche</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="col">
+                    <form th:action="@{/seancescours/filter3}" method="get">
+                        <div class="form-group">
+                            <label>Prof : </label>   
+                            <select name="prof"> 
+                                <option th:value="0">Selectionner prof</option>
+                                <option th:each="prof : ${listProfs}"
+                                th:value="${prof.id}"
+                                th:text="${prof.nom}" th:selected="${prof.id}==${filter3}"></option>
+                            </select>
+                            <button type="submit">Recherche</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col">
+                    <a th:href = "@{/seancescours}" class="btn btn-light btn-outline-dark">Effacer les filtres</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container my-2">
+            
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>SeanceCours Nom du Cours</th>
+                        <th>SeanceCours Jour</th>
+                        <th>SeanceCours Heure de Début</th>
+                        <th>SeanceCours Heure de Fin</th>
+                        <th>SeanceCours Prof</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="seancecours : ${listSeancesCours}">
+                        <td th:text="${seancecours.nomCours}"></td>
+                        <td th:text="${seancecours.jour}"></td>
+                        <td th:text="${seancecours.heureDeb}"></td>
+                        <td th:text="${seancecours.heureFin}"></td>
+                        <td th:text="${seancecours.prof.nom}"></td>
+                        <td><a th:href="@{/seancescours/update(id=${seancecours.id})}" class="btn btn-primary">Modifier</a>
+                            <a th:href="@{/seancescours/delete(id=${seancecours.id})}" class="btn btn-danger">Supprimer</a></td>
+                    </tr>
+                </tbody>
+            </table>
+            <a th:href = "@{/}" >Retour à la page d'accueil</a>
+        </div>
+    </body>
+</html>

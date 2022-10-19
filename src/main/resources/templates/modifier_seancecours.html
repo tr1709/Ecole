@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Système de gestion de l'école</title>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" 
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous" />
+    </head>
+    <body>
+        <div align="center">
+            <h1>Gestion des Cours</h1>
+            <hr />
+            <h2>Modifier Séance de Cours</h2>
+            
+            <form action="#" th:action="@{/seancescours/saveUpdate}" th:object="${seancecours}" method="POST">
+                <input type="hidden" th:field="*{id}" />
+                <div class="mb-4 col-4">
+                    <label th:for="nomCours">Nom du Cours</label>   
+                    <input type="text" th:field="*{nomCours}" class="form-control" />
+                    <span class="text-danger" th:errors="*{nomCours}"></span>
+                </div>
+                  <div class="mb-4 col-4">
+                    <label th:for="jour">Jour</label>
+                    <input type="text" th:field="*{jour}" class="form-control" />
+                    <span class="text-danger" th:errors="*{jour}"></span>
+                </div>
+                <div class="mb-4 col-4">
+                    <label th:for="heureDeb">Heure de Début</label>    
+                    <input type="time" th:field="*{heureDeb}" class="form-control" />
+                    <span class="text-danger" th:errors="*{heureDeb}"></span>
+                </div>
+                <div class="mb-4 col-4">
+                    <label th:for="heureFin">Heure de Fin</label>    
+                    <input type="time" th:field="*{heureFin}" class="form-control" />
+                    <span class="text-danger" th:errors="*{heureFin}"></span>
+                </div>
+              
+                <div class="mb-4 col-4">
+                    <label th:for="prof">Professeur</label>                 
+                    <select class="form-control" th:field="*{prof}"> 
+                        <option th:value="0">Selectionner Prof</option>
+                        <option th:each="prof : ${listProfs}"
+                                th:value="${prof.id}"
+                                th:text="${prof.nom}" th:selected=${prof==seancecours.prof}></option>
+                    </select>
+                    <span class="text-danger" th:errors="*{prof}"></span>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary col-2">Enregistrer</button>
+                    <a th:href = "@{/seancescours}" class="btn btn-danger col-2">Annuler</a>
+                </div>
+            </form>
+            <hr />
+            <div th:if="${message}" th:text="${message}" class="alert-danger"/>
+        </div>
+    </body>
+</html>
